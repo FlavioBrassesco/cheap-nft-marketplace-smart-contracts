@@ -3,7 +3,7 @@ const hre = require("hardhat");
 require("dotenv").config();
 
 const GOERLI_MARKETPLACE = "0x89D19595a157e58C49B0685C4df312BFB15488AD";
-const GOERLI_MOCKERC721 = "0x88aE5806DFFB448DAb23fc9797df7550F02268fA";
+const GOERLI_MOCKERC721 = "0x50aa678c1d841e81c779145FA167297dbbED9227";
 const GOERLI_MOCKERC20 = "0xd5ba4Bd691Fd043d61De18F03F9E9ED3F17C447a";
 
 // Batch mint erc721 tokens for wallet1, and erc20 tokens for wallet2
@@ -21,10 +21,10 @@ async function main() {
 
   // warning: this loop can last a minute or two
   for (let i = 0; i < 10; i++) {
-    const tx = await mockERC721.connect(wallet1).mint(wallet1.address, i);
+    const tx = await mockERC721.connect(wallet1).mint(wallet1.address);
     await tx.wait();
     console.log(
-      `Successfully minted token: ${i} for wallet 1. Hash:${tx.hash}`
+      `Successfully minted token for wallet 1. Hash:${tx.hash}`
     );
   }
 
