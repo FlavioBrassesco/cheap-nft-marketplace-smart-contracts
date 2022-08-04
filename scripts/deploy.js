@@ -7,18 +7,24 @@
 const hre = require("hardhat");
 
 async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const ONE_YEAR_IN_SECS = 365 * 24 * 60 * 60;
-  const unlockTime = currentTimestampInSeconds + ONE_YEAR_IN_SECS;
+  const Marketplace = await ethers.getContractFactory("Marketplace");
+  const marketplace = await Marketplace.deploy();
 
-  const lockedAmount = hre.ethers.utils.parseEther("1");
+  await marketplace.deployed();
 
-  const Lock = await hre.ethers.getContractFactory("Lock");
-  const lock = await Lock.deploy(unlockTime, { value: lockedAmount });
+  const MockERC721 = await ethers.getContractFactory("MockERC721");
+  const mockERC721 = await MockERC721.deploy("MockERC721", "M721");
+  await mockERC721.deployed();
 
-  await lock.deployed();
 
-  console.log("Lock with 1 ETH deployed to:", lock.address);
+  const MockERC20 = await ethers.getContractFactory("MockERC20");
+  const mockERC20 = await MockERC20.deploy("MockERC20", "M20");
+  await mockERC20.deployed();
+
+
+  console.log("Marketplace deployed to:", marketplace.address);
+  console.log("MockERC721 deployed to:", mockERC721.address);
+  console.log("MockERC20 deployed to:", mockERC20.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
