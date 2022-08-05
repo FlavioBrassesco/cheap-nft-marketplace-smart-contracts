@@ -22,7 +22,7 @@ describe("Marketplace", function () {
     const MockERC721 = await ethers.getContractFactory("MockERC721");
     const mockERC721 = await MockERC721.deploy("MockERC721", "M721");
 
-    const tx = await mockERC721.mint(owner.address, 0);
+    const tx = await mockERC721.mint(owner.address);
     tx.wait();
 
     return { mockERC721 };

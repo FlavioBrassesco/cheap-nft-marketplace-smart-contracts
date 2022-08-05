@@ -33,4 +33,9 @@ module.exports = {
     alwaysGenerateOverloads: false, // should overloads with full signatures like deposit(uint256) be generated always, even if there are no overloads?
     dontOverrideCompile: false, // defaults to false
   },
+  etherscan: {
+    apiKey: {
+      goerli: process.env.ETHERSCAN_API_KEY
+    }
+  }
 };
