@@ -18,30 +18,6 @@ contract Marketplace {
         uint256 bid;
     }
 
-    function getAuctionParticipants(
-        AuctionData memory auctionData,
-        bytes memory bidderSig,
-        bytes memory ownerApprovedSig
-    ) external pure returns (address, address) {
-        bytes32 messagehash = keccak256(
-            abi.encodePacked(
-                auctionData.collectionAddress,
-                auctionData.erc20Address,
-                auctionData.tokenId,
-                auctionData.bid
-            )
-        );
-        address bidder = messagehash.toEthSignedMessageHash().recover(
-            bidderSig
-        );
-        bytes32 hashedBidderSig = keccak256(bidderSig);
-        address owner = hashedBidderSig.toEthSignedMessageHash().recover(
-            ownerApprovedSig
-        );
-
-        return (bidder, owner);
-    }
-
     function finishAuction(
         AuctionData memory auctionData,
         bytes memory bidderSig,
